@@ -1,6 +1,7 @@
 module com.example.workshowjavafxjdbc {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
     opens javafx_jdbc.entities to javafx.base;
 
 

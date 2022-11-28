@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx_jdbc.entities.Department;
+import javafx_jdbc.modelDao.DaoFactory;
+import javafx_jdbc.modelDao.DepartmentDao;
 
 public class DepartmentService {
 
+    // Faço a dependência e injeto a dependência
+    private DepartmentDao dao = DaoFactory.createDepartmentDao();
     public List<Department> findAll() {
-        List<Department> list = new ArrayList<>();
-        list.add(new Department(1, "Books"));
-        list.add(new Department(2, "Computers"));
-        list.add(new Department(3, "Electronics"));
-        return list;
+        return dao.findAll();
     }
 }

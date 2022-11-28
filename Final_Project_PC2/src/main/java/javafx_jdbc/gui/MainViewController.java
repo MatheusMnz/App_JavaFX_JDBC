@@ -16,6 +16,7 @@ import javafx_jdbc.service.DepartmentService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class MainViewController  implements Initializable {
     @FXML
@@ -32,12 +33,15 @@ public class MainViewController  implements Initializable {
 
     @FXML
     public void onMenuItemDepartamentoAction(){
-        loadView2("/javafx_jdbc/listDepartamento.fxml");
+        loadView("/javafx_jdbc/listDepartamento.fxml", (DepartmentListController controller) -> {
+            controller.setDepartmentService(new DepartmentService());
+            controller.updateTableView();
+        });
     }
 
     @FXML
     public void onMenuItemSobreAction(){
-        loadView("/javafx_jdbc/Sobre.fxml");
+        loadView("/javafx_jdbc/Sobre.fxml", x -> {});
     }
 
     @Override
@@ -48,7 +52,8 @@ public class MainViewController  implements Initializable {
 
     // Carregar uma nova janela, com base no caminho passado
     // Usando synchronized para garantir que a thread n pare
-    private synchronized void loadView(String absoluteNameView){
+    // Utilizando Lógica de Expressão Lambda para não precisar ficar criando várias funções LoadView
+    private synchronized <T> void loadView(String absoluteNameView, Consumer<T> initializingAction){
 
         // Rerenciando a Main class pois estavd tendo um problema com diretorios usando getClass
         FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteNameView));
@@ -71,32 +76,14 @@ public class MainViewController  implements Initializable {
             mainVBox.getChildren().add(mainMenu);
             mainVBox.getChildren().addAll(newVBox.getChildren()); //addAll adiciona uma coleção
 
+            // Retorna um controller do tipo do Consumer
+            T controller = loader.getController();
+
+            // Executa a expressão lambda
+            initializingAction.accept(controller);
+
         } catch (IOException e) {
             Alerts.showAlert("IO exception", "Erro carregando a página", e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
-
-
-
-    private synchronized void loadView2(String absoluteName) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-            VBox newVBox = loader.load();
-
-            Scene mainScene = Main.getMainScene();
-            VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
-
-            Node mainMenu = mainVBox.getChildren().get(0);
-            mainVBox.getChildren().clear();
-            mainVBox.getChildren().add(mainMenu);
-            mainVBox.getChildren().addAll(newVBox.getChildren());
-
-            DepartmentListController controller = loader.getController();
-            controller.setDepartmentService(new DepartmentService());
-            controller.updateTableView();
-        }
-        catch (IOException e) {
-            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 

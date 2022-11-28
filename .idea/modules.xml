@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/FinalProject.iml" filepath="$PROJECT_DIR$/.idea/FinalProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Final_Project_PC2/workshow-javafx-jdbc.iml" filepath="$PROJECT_DIR$/Final_Project_PC2/workshow-javafx-jdbc.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx_jdbc.gui.MainViewController">
+   <content>
+      <VBox prefHeight="326.0" prefWidth="506.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="Registro">
+                  <items>
+                    <MenuItem fx:id="menuItemVendedor" mnemonicParsing="false" onAction="#onMenuItemVendedorAction" text="Vendedor" />
+                        <MenuItem fx:id="menuItemDepartamento" mnemonicParsing="false" onAction="#onMenuItemDepartamentoAction" text="Departamento" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Ajuda">
+                  <items>
+                    <MenuItem fx:id="menuItemSobre" mnemonicParsing="false" onAction="#onMenuItemSobreAction" text="Sobre" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

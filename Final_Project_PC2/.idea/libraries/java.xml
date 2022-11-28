@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="java">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$USER_HOME$/Documentos/conectorjdbc/mysql-connector-j-8.0.31/src/build/java" />
+      <root url="file://$USER_HOME$/Documentos/conectorjdbc/mysql-connector-j-8.0.31/src/demo/java" />
+      <root url="file://$USER_HOME$/Documentos/conectorjdbc/mysql-connector-j-8.0.31/src/generated/java" />
+      <root url="file://$USER_HOME$/Documentos/conectorjdbc/mysql-connector-j-8.0.31/src/legacy/java" />
+      <root url="file://$USER_HOME$/Documentos/conectorjdbc/mysql-connector-j-8.0.31/src/main/core-api/java" />
+      <root url="file://$USER_HOME$/Documentos/conectorjdbc/mysql-connector-j-8.0.31/src/main/core-impl/java" />
+      <root url="file://$USER_HOME$/Documentos/conectorjdbc/mysql-connector-j-8.0.31/src/main/protocol-impl/java" />
+      <root url="file://$USER_HOME$/Documentos/conectorjdbc/mysql-connector-j-8.0.31/src/main/user-api/java" />
+      <root url="file://$USER_HOME$/Documentos/conectorjdbc/mysql-connector-j-8.0.31/src/main/user-impl/java" />
+      <root url="file://$USER_HOME$/Documentos/conectorjdbc/mysql-connector-j-8.0.31/src/test/java" />
+    </SOURCES>
+  </library>
+</component>

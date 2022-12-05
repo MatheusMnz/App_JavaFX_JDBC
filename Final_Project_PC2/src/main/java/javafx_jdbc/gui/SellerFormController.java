@@ -1,6 +1,5 @@
 package javafx_jdbc.gui;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +19,7 @@ import javafx_jdbc.service.DepartmentService;
 import javafx_jdbc.service.SellerService;
 
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -161,11 +161,39 @@ public class SellerFormController implements Initializable {
         ValidationException exception = new ValidationException("Validation Error");
 
         // Preenchendo meu objeto Department
+
+        // ID
         obj.setId(Utils.tryParseToInt(txtId.getText()));
+
+        // Name
         if(txtName.getText() == null || txtName.getText().trim().equals("")){
             exception.addError("name", "Field can't be empty");
         }
         obj.setName(txtName.getText());
+
+        // Email
+        if(txtEmail.getText() == null || txtEmail.getText().trim().equals("")){
+            exception.addError("email", "Field can't be empty");
+        }
+        obj.setEmail(txtEmail.getText());
+
+        // BirthDay - Converter a data no horário local do usuário, para o instant, que é uma data independente de localidade
+        if(dpBirthDate.getValue() == null){
+            exception.addError("birthDate", "Field can't be empty");
+        }
+        else {
+            Instant instant = Instant.from(dpBirthDate.getValue().atStartOfDay(ZoneId.systemDefault()));
+            obj.setBirthDate(Date.from(instant));
+        }
+
+        // BaseSalary
+        if(txtBaseSalary.getText() == null || txtBaseSalary.getText().trim().equals("")){
+            exception.addError("baseSalary", "Field can't be empty");
+        }
+        obj.setBaseSalary(Utils.tryParseToDouble(txtBaseSalary.getText()));
+
+        // Department
+        obj.setDepartment(comboBoxDepartment.getValue());
 
 
         // Verifico se na minha exceção há pelo menos um erro
@@ -189,10 +217,11 @@ public class SellerFormController implements Initializable {
     private  void setErrorMessages(Map<String, String> errors){
         Set<String> fields = errors.keySet();
 
-        // Verifico se tem a chave name nos erros
-        if(fields.contains("name")){
-            labelError.setText(errors.get("name"));
-        }
+        // Verifico se contém as respectivas keys nos erros
+        labelError.setText(fields.contains("name") ? errors.get("name") : "");
+        labelErrorEmail.setText(fields.contains("email") ? errors.get("email") : "");
+        labelErrorBirthDate.setText(fields.contains("birthDate") ? errors.get("birthDate") : "");
+        labelErrorBaseSalary.setText(fields.contains("baseSalary") ? errors.get("baseSalary") : "");
     }
 
     private void initializeComboBoxDepartment() {

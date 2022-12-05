@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx_jdbc.gui.SellerListController">
+<VBox prefHeight="400.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx_jdbc.gui.SellerListController">
    <children>
       <Label text="Registro de Vendedor">
          <font>
@@ -22,15 +22,15 @@
        <ToolBar fx:id="tB" prefHeight="40.0" prefWidth="200.0">
            <Button fx:id="newBt" mnemonicParsing="false" onAction="#onBtNovo" text="Novo" />
        </ToolBar>
-      <TableView fx:id="tableViewSeller" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewSeller" prefHeight="200.0" prefWidth="765.0">
         <columns>
-          <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="tableColumnNome" prefWidth="75.0" text="Nome" />
-          <TableColumn fx:id="tableColumnEdit" prefWidth="70.0" />
-          <TableColumn fx:id="tableColumnRemove" prefWidth="80.0" />
-          <TableColumn fx:id="tableColumnEmail" prefWidth="80.0" text="Email" />
-          <TableColumn fx:id="tableColumnBirthDate" prefWidth="80.0" text="Aniversário" />
-          <TableColumn fx:id="tableColumnBaseSalary" prefWidth=" 75.0" text="Salário Base" />
+            <TableColumn fx:id="tableColumnId" prefWidth="40.0" text="ID" />
+            <TableColumn fx:id="tableColumnNome" prefWidth="75.0" text="Nome" />
+            <TableColumn fx:id="tableColumnEmail" prefWidth="80.0" text="Email" />
+            <TableColumn fx:id="tableColumnBirthDate" prefWidth="90.0" text="Aniversário" />
+            <TableColumn fx:id="tableColumnBaseSalary" prefWidth="110.0" text="Salário Base" />
+            <TableColumn fx:id="tableColumnEdit" prefWidth="70.0" />
+            <TableColumn fx:id="tableColumnRemove" prefWidth="80.0" />
         </columns>
       </TableView>
    </children>

@@ -39,9 +39,10 @@
             <TextField fx:id="txtId" editable="false" GridPane.columnIndex="1" />
             <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="txtBaseSalary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-
             <DatePicker fx:id="dpBirthDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+             <TextField fx:id="txtBaseSalary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
 
             <Label fx:id="labelError" textFill="#ee0404" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label fx:id="labelErrorEmail" textFill="#ee0404" GridPane.columnIndex="2" GridPane.rowIndex="2" />

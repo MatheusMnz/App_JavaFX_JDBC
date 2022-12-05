@@ -9,12 +9,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx_jdbc.db.DbException;
 import javafx_jdbc.entities.Department;
+import javafx_jdbc.gui.listeners.DataChangeListener;
 import javafx_jdbc.gui.util.Alerts;
 import javafx_jdbc.gui.util.Constraints;
 import javafx_jdbc.gui.util.Utils;
 import javafx_jdbc.service.DepartmentService;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DepartmentFormController implements Initializable {
@@ -24,6 +27,9 @@ public class DepartmentFormController implements Initializable {
     private Department departmentEntity;
 
     private DepartmentService departmentServiceEntity;
+
+    // Permite a inserção de outros objetos na lista e receber o event
+    private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
     @FXML
     private TextField txtId;
@@ -53,6 +59,7 @@ public class DepartmentFormController implements Initializable {
         try{
             departmentEntity = getFormData();
             departmentServiceEntity.saveOrUpdate(departmentEntity);
+            notifyDataChangeListeners();
             Utils.currentStage(event).close();
         }
         catch (DbException e){
@@ -60,7 +67,6 @@ public class DepartmentFormController implements Initializable {
         }
 
     }
-
 
 
     @FXML
@@ -96,6 +102,17 @@ public class DepartmentFormController implements Initializable {
         obj.setName(txtName.getText());
 
         return obj;
+    }
+
+
+    public void notifyDataChangeListeners(){
+        for(DataChangeListener listener: dataChangeListeners){
+            listener.onDataChange();
+        }
+    }
+
+    public void subscribeDataChangeListener(DataChangeListener listener){
+        dataChangeListeners.add(listener);
     }
 
     @Override

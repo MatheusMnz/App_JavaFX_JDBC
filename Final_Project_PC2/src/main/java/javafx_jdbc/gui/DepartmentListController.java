@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx_jdbc.gui.listeners.DataChangeListener;
 import javafx_jdbc.gui.util.Alerts;
 import javafx_jdbc.gui.util.Utils;
 import javafx_jdbc.service.DepartmentService;
@@ -28,10 +29,7 @@ import java.util.List;
 
 
 
-public class DepartmentListController implements Initializable {
-    // Criar referencias para os componentes da tela DepartamentoList
-
-
+public class DepartmentListController implements Initializable, DataChangeListener {
     private DepartmentService service;
 
     private ObservableList<Department> obsList;
@@ -51,6 +49,7 @@ public class DepartmentListController implements Initializable {
     @FXML
     private ToolBar tB;
 
+    // FXML METHODS --------------------------------------------------------------------------------
     @FXML
     public void onBtNovo(ActionEvent event){
         Stage parentStage = Utils.currentStage(event);
@@ -58,6 +57,8 @@ public class DepartmentListController implements Initializable {
         createDialogForm(departmentObj, parentStage,"/javafx_jdbc/DepartmentForm.fxml");
     }
 
+
+    // METHODS -------------------------------------------------------------------------------------
     public void setDepartmentService(DepartmentService service) {
         this.service = service;
     }
@@ -106,6 +107,9 @@ public class DepartmentListController implements Initializable {
             controller.setDepartmentEntity(departmentObject);
             controller.setDepartmentServiceEntity(new DepartmentService());
 
+            // Inscrevendo como Listener para receber os eventos do onDataChange
+            controller.subscribeDataChangeListener(this);
+
             // Carrego a minha entidade no formulário
             controller.updateFormData();
 
@@ -131,4 +135,8 @@ public class DepartmentListController implements Initializable {
         }
     }
 
+    @Override
+    public void onDataChange() {
+        updateTableView();
+    }
 }

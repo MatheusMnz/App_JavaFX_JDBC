@@ -13,12 +13,11 @@ import javafx_jdbc.gui.listeners.DataChangeListener;
 import javafx_jdbc.gui.util.Alerts;
 import javafx_jdbc.gui.util.Constraints;
 import javafx_jdbc.gui.util.Utils;
+import javafx_jdbc.modelExceptions.ValidationException;
 import javafx_jdbc.service.DepartmentService;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DepartmentFormController implements Initializable {
 
@@ -65,9 +64,11 @@ public class DepartmentFormController implements Initializable {
         catch (DbException e){
             Alerts.showAlert("Error saving object", "null", e.getMessage(), Alert.AlertType.ERROR);
         }
+        catch (ValidationException e){
+            setErrorMessages(e.getErros());
+        }
 
     }
-
 
     @FXML
     public void onBtCancel(ActionEvent event){
@@ -96,14 +97,23 @@ public class DepartmentFormController implements Initializable {
 
     private Department getFormData() {
         Department obj = new Department();
+        ValidationException exception = new ValidationException("Validation Error");
 
         // Preenchendo meu objeto Department
         obj.setId(Utils.tryParseToInt(txtId.getText()));
+        if(txtName.getText() == null || txtName.getText().trim().equals("")){
+            exception.addError("name", "Field can't be empty");
+        }
         obj.setName(txtName.getText());
+
+
+        // Verifico se na minha exceção há pelo menos um erro
+        if(exception.getErros().size() > 0){
+            throw exception;
+        }
 
         return obj;
     }
-
 
     public void notifyDataChangeListeners(){
         for(DataChangeListener listener: dataChangeListeners){
@@ -115,6 +125,14 @@ public class DepartmentFormController implements Initializable {
         dataChangeListeners.add(listener);
     }
 
+    private  void setErrorMessages(Map<String, String> errors){
+        Set<String> fields = errors.keySet();
+
+        // Verifico se tem a chave name nos erros
+        if(fields.contains("name")){
+            labelError.setText(errors.get("name"));
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeNodes();

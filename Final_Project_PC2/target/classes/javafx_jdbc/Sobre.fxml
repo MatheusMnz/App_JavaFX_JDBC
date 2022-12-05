@@ -12,13 +12,39 @@
             <Font name="System Bold" size="20.0" />
          </font>
          <padding>
-            <Insets bottom="10.0" left="20.0" top="10.0" />
+            <Insets bottom="5.0" left="5.0" top="10.0" />
          </padding>
       </Label>
-      <Label text="JavaFxApplication">
-         <VBox.margin>
+      <Label text="Projeto Final Desenvolvido para a matéria de Programação de Computadores 2.">
+         <padding>
             <Insets left="20.0" />
-         </VBox.margin>
+         </padding>
+      </Label>
+      <Label text="Integrantes: ">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="5.0" top="10.0" />
+         </padding>
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label text="Matheus Costa de Menezes">
+         <padding>
+            <Insets left="20.0" top="5.0" />
+         </padding>
+      </Label>
+      <Label text="Mateus Gonçalves">
+         <padding>
+            <Insets left="20.0" top="5.0" />
+         </padding>
+      </Label>
+      <Label text="Laura Pianetti">
+         <padding>
+            <Insets left="20.0" top="5.0" />
+         </padding>
       </Label>
    </children>
 </VBox>

@@ -173,7 +173,7 @@ public class SellerListController implements Initializable, DataChangeListener {
                 }
                 setGraphic(button);
                 button.setOnAction(
-                        event -> createDialogForm(obj, Utils.currentStage(event), "/javafx_jdbc/DepartmentForm.fxml"));
+                        event -> createDialogForm(obj, Utils.currentStage(event), "/javafx_jdbc/SellerForm.fxml"));
             }
         });
     }

@@ -3,10 +3,7 @@ package javafx_jdbc.gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx_jdbc.db.DbException;
 import javafx_jdbc.entities.Department;
 import javafx_jdbc.entities.Seller;
@@ -19,6 +16,8 @@ import javafx_jdbc.service.DepartmentService;
 import javafx_jdbc.service.SellerService;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 public class SellerFormController implements Initializable {
@@ -36,6 +35,18 @@ public class SellerFormController implements Initializable {
     private TextField txtId;
     @FXML
     private TextField txtName;
+    @FXML
+    private TextField txtEmail;
+    @FXML
+    private DatePicker dpBirthDate;
+    @FXML
+    private TextField txtBaseSalary;
+    @FXML
+    private Label labelErrorEmail;
+    @FXML
+    private Label labelErrorBirthDate;
+    @FXML
+    private Label labelErrorBaseSalary;
     @FXML
     private Label labelError;
     @FXML
@@ -93,8 +104,18 @@ public class SellerFormController implements Initializable {
         if (this.sellerEntity == null){
             throw  new IllegalStateException("SellerEntity was null");
         }
+
+        // Com base no meu objeto, eu seto o formulário
         txtId.setText(String.valueOf(this.sellerEntity.getId()));
         txtName.setText(this.sellerEntity.getName());
+        txtEmail.setText(this.sellerEntity.getEmail());
+        Locale.setDefault(Locale.US);
+        txtBaseSalary.setText(String.format("%.2f", this.sellerEntity.getBaseSalary()));
+
+        if(this.sellerEntity.getBirthDate() != null){
+            // Pego a data com base no horário local do usuário
+            dpBirthDate.setValue(LocalDate.ofInstant(sellerEntity.getBirthDate().toInstant(), ZoneId.systemDefault()));
+        }
     }
 
     private Seller getFormData() {
@@ -144,6 +165,9 @@ public class SellerFormController implements Initializable {
     // Colocar restrições nas caixas de ID e Nome
     private void initializeNodes(){
         Constraints.setTextFieldInteger(txtId);
-        Constraints.setTextFieldMaxLength(txtName, 30);
+        Constraints.setTextFieldMaxLength(txtName, 50);
+        Constraints.setTextFieldDouble(txtBaseSalary);
+        Constraints.setTextFieldMaxLength(txtEmail, 60);
+        Utils.formatDatePicker(dpBirthDate, "dd/MM/yyyy");
     }
 }

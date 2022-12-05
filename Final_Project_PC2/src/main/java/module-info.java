@@ -7,6 +7,8 @@ module com.example.workshowjavafxjdbc {
 
     opens javafx_jdbc to javafx.fxml, javafx.graphics;
     exports javafx_jdbc;
-    opens javafx_jdbc.gui to javafx.fxml;
-    opens javafx_jdbc.gui.util to javafx.fxml;
+    exports javafx_jdbc.gui.util;
+    opens javafx_jdbc.gui.util to javafx.fxml, javafx.graphics;
+    exports javafx_jdbc.gui;
+    opens javafx_jdbc.gui to javafx.fxml, javafx.graphics;
 }

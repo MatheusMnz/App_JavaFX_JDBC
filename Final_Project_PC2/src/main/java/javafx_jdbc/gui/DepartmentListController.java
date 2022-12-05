@@ -54,7 +54,8 @@ public class DepartmentListController implements Initializable {
     @FXML
     public void onBtNovo(ActionEvent event){
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm(parentStage,"/javafx_jdbc/DepartmentForm.fxml");
+        Department departmentObj = new Department();
+        createDialogForm(departmentObj, parentStage,"/javafx_jdbc/DepartmentForm.fxml");
     }
 
     public void setDepartmentService(DepartmentService service) {
@@ -92,10 +93,20 @@ public class DepartmentListController implements Initializable {
     }
 
     // Recebo como parâmetro uma referência para o stage que criou a janela de dialogo e o caminho da view
-    private void createDialogForm(Stage parentStage, String absoluteName){
+    private void createDialogForm(Department departmentObject, Stage parentStage, String absoluteName){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
+
+            // Injetar o departamento no controlador da tela de Formulario (DepartmentForm Controller)
+            // Pego referência do controlador da tela criada
+            DepartmentFormController controller = loader.getController();
+
+            // Seto a minha entidade de departamento
+            controller.setDepartmentEntity(departmentObject);
+
+            // Carrego a minha entidade no formulário
+            controller.updateFormData();
 
 
             // Quando carregar uma janela de dialogo modal, na frente de uma janela já existente eu devo instanciar um novo Stage

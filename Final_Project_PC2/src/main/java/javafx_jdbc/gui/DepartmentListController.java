@@ -1,5 +1,6 @@
 package javafx_jdbc.gui;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -42,6 +43,9 @@ public class DepartmentListController implements Initializable, DataChangeListen
 
     @FXML
     private  TableColumn<Department, String> tableColumnNome;
+
+    @FXML
+    private  TableColumn<Department, Department> tableColumnEdit;
 
     @FXML
     private Button newBt;
@@ -91,6 +95,7 @@ public class DepartmentListController implements Initializable, DataChangeListen
         List<Department> list = service.findAll();
         obsList = FXCollections.observableArrayList(list);
         tableViewDepartement.setItems(obsList);
+        initEditButtons();
     }
 
     // Recebo como parâmetro uma referência para o stage que criou a janela de dialogo e o caminho da view
@@ -138,5 +143,25 @@ public class DepartmentListController implements Initializable, DataChangeListen
     @Override
     public void onDataChange() {
         updateTableView();
+    }
+
+    // Acrescenta novos botões com text: Editar em cada linha da tabela e quando clicado abre o formulario de edição
+    private void initEditButtons() {
+        // Referência dessa solução: https://stackoverflow.com/questions/32282230/fxml-javafx-8-tableview-make-a-delete-button-in-each-row-and-delete-the-row-a
+        tableColumnEdit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        tableColumnEdit.setCellFactory(param -> new TableCell<Department, Department>() {
+            private final Button button = new Button("editar");
+            @Override
+            protected void updateItem(Department obj, boolean empty) {
+                super.updateItem(obj, empty);
+                if (obj == null) {
+                    setGraphic(null);
+                    return;
+                }
+                setGraphic(button);
+                button.setOnAction(
+                        event -> createDialogForm(obj, Utils.currentStage(event), "/javafx_jdbc/DepartmentForm.fxml"));
+            }
+        });
     }
 }

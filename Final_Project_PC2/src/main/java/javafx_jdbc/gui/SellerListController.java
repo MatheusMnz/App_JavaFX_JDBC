@@ -5,9 +5,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx_jdbc.Main;
 import javafx_jdbc.db.DbIntegrityException;
@@ -17,6 +21,7 @@ import javafx_jdbc.gui.util.Alerts;
 import javafx_jdbc.gui.util.Utils;
 import javafx_jdbc.service.SellerService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -61,8 +66,8 @@ public class SellerListController implements Initializable, DataChangeListener {
     @FXML
     public void onBtNovo(ActionEvent event){
         Stage parentStage = Utils.currentStage(event);
-        Seller departmentObj = new Seller();
-        createDialogForm(departmentObj, parentStage,"/javafx_jdbc/DepartmentForm.fxml");
+        Seller sellerObj = new Seller();
+        createDialogForm(sellerObj, parentStage,"/javafx_jdbc/SellerForm.fxml");
     }
 
 
@@ -107,45 +112,45 @@ public class SellerListController implements Initializable, DataChangeListener {
     }
 
     // Recebo como parâmetro uma referência para o stage que criou a janela de dialogo e o caminho da view
-    private void createDialogForm(Seller departmentObject, Stage parentStage, String absoluteName){
-//        try{
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-//            Pane pane = loader.load();
-//
-//            // Injetar o departamento no controlador da tela de Formulario (DepartmentForm Controller)
-//            // Pego referência do controlador da tela criada
-//            DepartmentFormController controller = loader.getController();
-//
-//            // Seto as minhas entidades
-//            controller.setDepartmentEntity(departmentObject);
-//            controller.setDepartmentServiceEntity(new DepartmentService());
-//
-//            // Inscrevendo como Listener para receber os eventos do onDataChange
-//            controller.subscribeDataChangeListener(this);
-//
-//            // Carrego a minha entidade no formulário
-//            controller.updateFormData();
-//
-//
-//            // Quando carregar uma janela de dialogo modal, na frente de uma janela já existente eu devo instanciar um novo Stage
-//            Stage dialogStage = new Stage();
-//            dialogStage.setTitle("Insira os dados do departamento");
-//            dialogStage.setScene(new Scene(pane));
-//
-//            // Pode ou não redimensionar a janela
-//            dialogStage.setResizable(false);
-//
-//            // Passo o stage "pai" da janela
-//            dialogStage.initOwner(parentStage);
-//
-//            // Janela modal ou não. Enquanto não fechar essa janela, não possuo acesso à janela anterior
-//            dialogStage.initModality(Modality.WINDOW_MODAL);
-//
-//            dialogStage.showAndWait();
-//        }
-//        catch (IOException e){
-//            e.printStackTrace();
-//        }
+    private void createDialogForm(Seller sellerObject, Stage parentStage, String absoluteName){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+            Pane pane = loader.load();
+
+            // Injetar o departamento no controlador da tela de Formulario (DepartmentForm Controller)
+            // Pego referência do controlador da tela criada
+            SellerFormController controller = loader.getController();
+
+            // Seto as minhas entidades
+            controller.setSellerEntity(sellerObject);
+            controller.setDepartmentServiceEntity(new SellerService());
+
+            // Inscrevendo como Listener para receber os eventos do onDataChange
+            controller.subscribeDataChangeListener(this);
+
+            // Carrego a minha entidade no formulário
+            controller.updateFormData();
+
+
+            // Quando carregar uma janela de dialogo modal, na frente de uma janela já existente eu devo instanciar um novo Stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Insira os dados do vendedor");
+            dialogStage.setScene(new Scene(pane));
+
+            // Pode ou não redimensionar a janela
+            dialogStage.setResizable(false);
+
+            // Passo o stage "pai" da janela
+            dialogStage.initOwner(parentStage);
+
+            // Janela modal ou não. Enquanto não fechar essa janela, não possuo acesso à janela anterior
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+
+            dialogStage.showAndWait();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

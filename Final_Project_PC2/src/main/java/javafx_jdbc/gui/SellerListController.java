@@ -5,26 +5,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx_jdbc.Main;
 import javafx_jdbc.db.DbIntegrityException;
-import javafx_jdbc.entities.Department;
 import javafx_jdbc.entities.Seller;
 import javafx_jdbc.gui.listeners.DataChangeListener;
 import javafx_jdbc.gui.util.Alerts;
 import javafx_jdbc.gui.util.Utils;
-import javafx_jdbc.service.DepartmentService;
 import javafx_jdbc.service.SellerService;
 
-import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -32,8 +26,6 @@ import java.util.ResourceBundle;
 
 public class SellerListController implements Initializable, DataChangeListener {
     private SellerService service;
-
-    private ObservableList<Seller> obsList;
 
     @FXML
     private TableView<Seller> tableViewSeller;
@@ -43,6 +35,15 @@ public class SellerListController implements Initializable, DataChangeListener {
 
     @FXML
     private  TableColumn<Seller, String> tableColumnNome;
+
+    @FXML
+    private  TableColumn<Seller, String> tableColumnEmail;
+
+    @FXML
+    private  TableColumn<Seller, Date> tableColumnBirthDate;
+
+    @FXML
+    private  TableColumn<Seller, Double> tableColumnBaseSalary;
 
     @FXML
     private  TableColumn<Seller, Seller> tableColumnEdit;
@@ -79,15 +80,18 @@ public class SellerListController implements Initializable, DataChangeListener {
     private void initializeNodes() {
         tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        tableColumnBirthDate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+        tableColumnBaseSalary.setCellValueFactory(new PropertyValueFactory<>("baseSalary"));
+        Utils.formatTableColumnDate(tableColumnBirthDate, "dd/MM/yyyy");
+        Utils.formatTableColumnDouble(tableColumnBaseSalary, 2);
 
-        // Preencher toda a tela
 
         // Pego a referencia para a janela (SuperClass do Stage)
         Stage stage = (Stage) Main.getMainScene().getWindow();
 
         // Fazer a tabela acompanhar a janela
         tableViewSeller.prefHeightProperty().bind(stage.heightProperty());
-        tableViewSeller.prefWidthProperty().bind(stage.widthProperty());
 
     }
 
@@ -96,7 +100,7 @@ public class SellerListController implements Initializable, DataChangeListener {
             throw new IllegalStateException("Service was null");
         }
         List<Seller> list = service.findAll();
-        obsList = FXCollections.observableArrayList(list);
+        ObservableList<Seller> obsList = FXCollections.observableArrayList(list);
         tableViewSeller.setItems(obsList);
         initEditButtons();
         initRemoveButtons();

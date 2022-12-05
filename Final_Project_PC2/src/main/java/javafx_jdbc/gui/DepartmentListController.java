@@ -102,8 +102,9 @@ public class DepartmentListController implements Initializable {
             // Pego referência do controlador da tela criada
             DepartmentFormController controller = loader.getController();
 
-            // Seto a minha entidade de departamento
+            // Seto as minhas entidades
             controller.setDepartmentEntity(departmentObject);
+            controller.setDepartmentServiceEntity(new DepartmentService());
 
             // Carrego a minha entidade no formulário
             controller.updateFormData();

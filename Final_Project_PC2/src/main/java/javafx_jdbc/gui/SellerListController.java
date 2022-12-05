@@ -19,6 +19,7 @@ import javafx_jdbc.entities.Seller;
 import javafx_jdbc.gui.listeners.DataChangeListener;
 import javafx_jdbc.gui.util.Alerts;
 import javafx_jdbc.gui.util.Utils;
+import javafx_jdbc.service.DepartmentService;
 import javafx_jdbc.service.SellerService;
 
 import java.io.IOException;
@@ -123,7 +124,10 @@ public class SellerListController implements Initializable, DataChangeListener {
 
             // Seto as minhas entidades
             controller.setSellerEntity(sellerObject);
-            controller.setDepartmentServiceEntity(new SellerService());
+            controller.setServices(new SellerService(), new DepartmentService());
+
+            // Carrego os objetos associados (Departments) do DB
+            controller.loadAssociatedObjects();
 
             // Inscrevendo como Listener para receber os eventos do onDataChange
             controller.subscribeDataChangeListener(this);
@@ -150,6 +154,7 @@ public class SellerListController implements Initializable, DataChangeListener {
         }
         catch (IOException e){
             e.printStackTrace();
+            Alerts.showAlert("IO Exception", "Error Loading view", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 

@@ -19,11 +19,9 @@
             <Insets left="5.0" top="5.0" />
          </padding>
       </Label>
-      <ToolBar prefHeight="40.0" prefWidth="200.0">
-        <items>
-            <Button fx:id="BtNovo" mnemonicParsing="false" onAction="#onBtNovo" text="Novo" />
-        </items>
-      </ToolBar>
+       <ToolBar  fx:id="tB" prefHeight="40.0" prefWidth="200.0">
+           <Button fx:id="newBt" mnemonicParsing="false" onAction="#onBtNovo" text="Novo"/>
+       </ToolBar>
       <TableView fx:id="tableViewDepartement" prefHeight="200.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="id" />

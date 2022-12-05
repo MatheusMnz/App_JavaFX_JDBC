@@ -1,25 +1,32 @@
 package javafx_jdbc.gui;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx_jdbc.Main;
 import javafx_jdbc.entities.Department;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx_jdbc.gui.util.Alerts;
+import javafx_jdbc.gui.util.Utils;
 import javafx_jdbc.service.DepartmentService;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import java.util.List;
 
 
-import java.net.URL;
-import java.util.ResourceBundle;
+
 
 public class DepartmentListController implements Initializable {
     // Criar referencias para os componentes da tela DepartamentoList
@@ -39,11 +46,15 @@ public class DepartmentListController implements Initializable {
     private  TableColumn<Department, String> tableColumnNome;
 
     @FXML
-    private Button BtNovo;
+    private Button newBt;
 
     @FXML
-    public void onBtNovo(){
-        System.out.println("aqui");
+    private ToolBar tB;
+
+    @FXML
+    public void onBtNovo(ActionEvent event){
+        Stage parentStage = Utils.currentStage(event);
+        createDialogForm(parentStage,"/javafx_jdbc/DepartmentForm.fxml");
     }
 
     public void setDepartmentService(DepartmentService service) {
@@ -80,5 +91,32 @@ public class DepartmentListController implements Initializable {
         tableViewDepartement.setItems(obsList);
     }
 
+    // Recebo como parâmetro uma referência para o stage que criou a janela de dialogo e o caminho da view
+    private void createDialogForm(Stage parentStage, String absoluteName){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+            Pane pane = loader.load();
+
+
+            // Quando carregar uma janela de dialogo modal, na frente de uma janela já existente eu devo instanciar um novo Stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Insira os dados do departamento");
+            dialogStage.setScene(new Scene(pane));
+
+            // Pode ou não redimensionar a janela
+            dialogStage.setResizable(false);
+
+            // Passo o stage "pai" da janela
+            dialogStage.initOwner(parentStage);
+
+            // Janela modal ou não. Enquanto não fechar essa janela, não possuo acesso à janela anterior
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+
+            dialogStage.showAndWait();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 
 }

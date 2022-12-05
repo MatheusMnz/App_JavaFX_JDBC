@@ -1,6 +1,5 @@
 package javafx_jdbc.gui;
 
-import javafx.stage.Stage;
 import javafx_jdbc.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import javafx_jdbc.gui.util.Alerts;
 import javafx_jdbc.service.DepartmentService;
 
 import java.io.IOException;
@@ -54,10 +54,9 @@ public class MainViewController  implements Initializable {
     // Usando synchronized para garantir que a thread n pare
     // Utilizando Lógica de Expressão Lambda para não precisar ficar criando várias funções LoadView
     private synchronized <T> void loadView(String absoluteNameView, Consumer<T> initializingAction){
-
-        // Rerenciando a Main class pois estavd tendo um problema com diretorios usando getClass
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteNameView));
         try {
+            // Rerenciando a Main class pois estavd tendo um problema com diretorios usando getClass
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteNameView));
             VBox newVBox = loader.load();
 
             // Mostrar a view dentro da janela principal (Referencia da cena principal)
@@ -83,7 +82,7 @@ public class MainViewController  implements Initializable {
             initializingAction.accept(controller);
 
         } catch (IOException e) {
-            Alerts.showAlert("IO exception", "Erro carregando a página", e.getMessage(), Alert.AlertType.ERROR);
+            Alerts.showAlert("IO exception", "Erro Carregando a Página", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 

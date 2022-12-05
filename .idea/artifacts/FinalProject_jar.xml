@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/dist/META-INF</output-path>
     <root id="archive" name="FinalProject.jar">
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/dist/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/Final_Project_PC2/dist/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="workshow-javafx-jdbc" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/18.0.1/javafx-base-18.0.1-linux.jar" path-in-jar="/" />

@@ -1,7 +1,14 @@
 # Projeto De uma Aplicação utilizando JavaFX com JDBC.
 
+Foram utilizados nesse projeto, conceitos de:
+- OOP
+- Expressões Lambdas
+- JavaFX
+- JDBC
 
-View Department: <br>
+## Imagens da Aplicação:
+
+<br>View Department: <br>
 ![View Department](https://github.com/MatheusMnz/ProjetoFinal-Pc2/blob/main/Final_Project_PC2/src/main/java/javafx_jdbc/assets/ViewDepartment.png)
 
 <br>View DepartmentForm: <br>
@@ -21,14 +28,3 @@ View Department: <br>
 
 <br>View FormVendedorEdit: <br>
 ![View FormVendedorEdit](https://github.com/MatheusMnz/ProjetoFinal-Pc2/blob/main/Final_Project_PC2/src/main/java/javafx_jdbc/assets/ViewVendedorEdit.png)
-
-
-
-
-Foram utilizados nesse projeto, conceitos de:
-- OOP
-- Expressões Lambdas
-- JavaFX
-- JDBC
-
-
